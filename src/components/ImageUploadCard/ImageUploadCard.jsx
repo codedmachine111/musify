@@ -3,6 +3,10 @@ import { Button } from "../Button/Button";
 import Webcam from "react-webcam";
 import { useState, useRef, useCallback } from "react";
 import { predictImageClass } from "../../utilities/predict";
+import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
+import { useContext } from "react";
+import { PredictContext } from '../../App'
+import { SongContext } from '../../App'
 
 const ImageUploadCard = () => {
   const videoConstraints = {
@@ -10,6 +14,8 @@ const ImageUploadCard = () => {
     height: 400,
     facingMode: "user",
   };
+  const { setPredicted } = useContext(PredictContext);
+  const { setSong } = useContext(SongContext);
 
   const [image, setImage] = useState("");
   const [prediction, setPrediction] = useState("");
@@ -31,6 +37,9 @@ const ImageUploadCard = () => {
     
     const predictedClass = await predictImageClass(imageElement);
     setPrediction(predictedClass);
+    const track = await getGenreSongsForEmotion(prediction);
+    setSong(track);
+    setPredicted(true);
   };
   
 
