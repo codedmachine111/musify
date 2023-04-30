@@ -6,7 +6,7 @@ import { predictImageClass } from "../../utilities/predict";
 import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
 import { useContext } from "react";
 import { PredictContext } from '../../App'
-import { SongContext } from '../../App'
+import { SongsContext } from '../../App'
 
 const ImageUploadCard = () => {
   const videoConstraints = {
@@ -15,7 +15,7 @@ const ImageUploadCard = () => {
     facingMode: "user",
   };
   const { setPredicted } = useContext(PredictContext);
-  const { setSong } = useContext(SongContext);
+  const { setSongs } = useContext(SongsContext);
 
   const [image, setImage] = useState("");
   const [prediction, setPrediction] = useState("");
@@ -37,8 +37,8 @@ const ImageUploadCard = () => {
     
     const predictedClass = await predictImageClass(imageElement);
     setPrediction(predictedClass);
-    const track = await getGenreSongsForEmotion(prediction);
-    setSong(track);
+    const tracks = await getGenreSongsForEmotion(prediction);
+    setSongs(tracks);
     setPredicted(true);
   };
   
@@ -48,6 +48,7 @@ const ImageUploadCard = () => {
       <div className="image-upload-card-container">
         <div className="image-input">
           <h2>Take a Selfie!</h2>
+          <p>(Please take a clear photo!)</p>
           <div className="webcam-container">
             {image == "" ? (
               <Webcam
@@ -75,7 +76,7 @@ const ImageUploadCard = () => {
                   setPrediction("");
                 }}
               />
-              <Button title="music" onClick={onPredictHandler} />
+              <Button title="recommend music" onClick={onPredictHandler} />
             </>
           ) : (
             <Button
@@ -90,7 +91,7 @@ const ImageUploadCard = () => {
         <div className="prediction">
           {prediction != "" ? (
             <>
-              <h2>{prediction}</h2>
+              <h2 id="pred">{prediction}</h2>
             </>
           ) : (
             <></>

@@ -4,9 +4,9 @@ import { Buffer } from "buffer";
 const SPOTIFY_CLIENT_ID = "230fac4104c4462280da56bb88bed015";
 const SPOTIFY_CLIENT_SECRET = "0f6566c81ad642399610d7c32ee46401";
 
-const getSpotifyAccessToken = async (client_id, client_secret) => {
-  var accessToken = "";
+let accessToken = "";
 
+const getSpotifyAccessToken = async (client_id, client_secret) => {
   const formData = new URLSearchParams();
   formData.append("grant_type", "client_credentials");
 
@@ -20,18 +20,25 @@ const getSpotifyAccessToken = async (client_id, client_secret) => {
     })
     .then((res) => {
       accessToken = res.data.access_token;
-    });
+      const expiresIn = res.data.expires_in;
 
+      // Set a timeout to automatically refresh the token when it expires
+      setTimeout(() => {
+        getSpotifyAccessToken(client_id, client_secret);
+      }, (expiresIn - 60) * 1000); // Refresh 1 minute before expiration
+    });
+  return accessToken;
+};
+
+const getAccessToken = async () => {
+  if (!accessToken) {
+    // Request a new access token if none exists
+    await getSpotifyAccessToken(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET);
+  }
   return accessToken;
 };
 
 export const getGenreSongsForEmotion = async (emotion) => {
-  // const token = await getSpotifyAccessToken(
-  //   SPOTIFY_CLIENT_ID,
-  //   SPOTIFY_CLIENT_SECRET
-  // );
-  // console.log(token);
-
   const happyMusicGenres = [
     "happy",
     "sad",
@@ -45,22 +52,37 @@ export const getGenreSongsForEmotion = async (emotion) => {
   } else {
     query = "sad";
   }
-  const token ="BQCUpCmkP0pw35z13Qe1FrVInAs2sQ20YFf9EOvlhDs5V4oayg9svRQjR05-_b8GKfKTmYaggkfH2ZdcQ-UWKO6pSTprkfQZDLKYNhUpXh7BYRZfS-U3";
-  var track = null;
-  await axios
-    .get(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=20`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then((res) => {
-      // Extract the tracks from the response
-      const tracks = res.data.tracks.items;
+  const token = await getAccessToken();
 
-      // Pick a random track from the list
-      const randomIndex = Math.floor(Math.random() * tracks.length);
-      track = tracks[randomIndex];
-    });
+  let tracks = [];
+  const maxTracks = 50;
+  let offset = 0;
 
-    return track;
+  while (tracks.length < maxTracks) {
+    const response = await axios.get(
+      `https://api.spotify.com/v1/search?q=${query}&type=track&limit=50&offset=${offset}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    const newTracks = response.data.tracks.items;
+    if (newTracks.length === 0) {
+      break;
+    }
+
+    tracks = [...tracks, ...newTracks];
+    offset += newTracks.length;
+  }
+
+  for (let i = tracks.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+  }
+
+  const randomTracks = tracks.slice(0, 5);
+
+  return randomTracks;
 };

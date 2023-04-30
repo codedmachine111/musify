@@ -3,14 +3,14 @@ import ImageUploadCard from "../../components/ImageUploadCard/ImageUploadCard";
 import { VoiceInputCard } from "../../components/VoiceInputCard/VoiceInputCard";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { SpotifyPlayerCard } from "../../components/SpotifyPlayerCard/SpotifyPlayerCard";
+import { SongsListCard } from "../../components/SongsListCard/SongsListCard";
 import { useContext } from "react";
 import { PredictContext } from "../../App";
-import { SongContext } from "../../App";
+import { SongsContext } from "../../App";
 
 export const HomePage = () => {
   const { predicted } = useContext(PredictContext);
-  const { song } = useContext(SongContext);
-
+  const { songs } = useContext(SongsContext);
   return (
     <>
       <Navbar />
@@ -19,7 +19,8 @@ export const HomePage = () => {
         <div className="home-content-container">
           {predicted ? (
             <>
-              <SpotifyPlayerCard track={song}/>
+              <SpotifyPlayerCard tracks={songs}/>
+              <SongsListCard tracks={songs}/>
             </>
           ) : (
             <>

@@ -4,23 +4,23 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { createContext, useState } from "react";
 
 export const PredictContext = createContext();
-export const SongContext = createContext();
+export const SongsContext = createContext();
 
 function App() {
   const [predicted, setPredicted] = useState(false);
-  const [song, setSong] = useState({});
+  const [songs, setSongs] = useState([]);
 
   return (
     <>
       <div className="App">
         <PredictContext.Provider value={{ predicted, setPredicted }}>
-          <SongContext.Provider value={{ song, setSong }}>
+          <SongsContext.Provider value={{ songs, setSongs }}>
             <Router>
               <Routes>
                 <Route path="/" element={<HomePage />} />
               </Routes>
             </Router>
-          </SongContext.Provider>
+          </SongsContext.Provider>
         </PredictContext.Provider>
       </div>
     </>

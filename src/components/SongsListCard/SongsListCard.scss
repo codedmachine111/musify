@@ -1,0 +1,29 @@
+.spotify-player {
+  width: 50%;
+
+  h2 {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .songs-list {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .SpotifyPlayer {
+      margin: 1rem 0 0 0;
+      width: 45%;
+      height: 10rem;
+    }
+  }
+
+  p {
+    font-size: 0.7rem;
+    color: #fff;
+    margin: 0;
+    opacity: 0.6;
+    font-style: italic;
+  }
+}
