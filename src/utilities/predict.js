@@ -6,7 +6,7 @@ export const loadModel = async ()=>{
         const model = await tf.loadLayersModel(`${import.meta.env.VITE_APP_URL}/src/assets/model/model.json`); 
         return model;
     }else{
-        const model = await tf.loadLayersModel('/assets/model/model.json');
+        const model = await tf.loadLayersModel('/src/assets/model/model.json');
         return model;
     }
 }
