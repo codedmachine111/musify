@@ -8,9 +8,6 @@ import { Buffer } from "buffer";
 const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID
 const SPOTIFY_CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
 
-console.log(SPOTIFY_CLIENT_ID)
-console.log(SPOTIFY_CLIENT_SECRET)
-
 let accessToken = "";
 
 const getSpotifyAccessToken = async (client_id, client_secret) => {

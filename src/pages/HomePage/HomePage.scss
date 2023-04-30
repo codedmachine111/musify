@@ -17,3 +17,16 @@
 
     }
 }
+
+@media screen and (max-width: 600px){
+    .home-page-container{
+        min-height: calc(100vh - 7vh - 2.2rem);
+        width: 100%;
+
+        .home-content-container{
+            width: 100%;
+            flex-direction: column;
+            gap: 2%;
+        }
+    }
+}

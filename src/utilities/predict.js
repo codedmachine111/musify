@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs'
 import { TARGET_CLASSES } from './target_classes'
 
 export const loadModel = async ()=>{
-    const model = await tf.loadLayersModel('http://127.0.0.1:5173/src/assets/model/model.json'); 
+    const model = await tf.loadLayersModel(`${import.meta.env.VITE_APP_URL}/src/assets/model/model.json`); 
     return model;
 }
 
