@@ -1,8 +1,15 @@
 import axios from "axios";
 import { Buffer } from "buffer";
 
-const SPOTIFY_CLIENT_ID = "230fac4104c4462280da56bb88bed015";
-const SPOTIFY_CLIENT_SECRET = "0f6566c81ad642399610d7c32ee46401";
+
+// const SPOTIFY_CLIENT_ID = "230fac4104c4462280da56bb88bed015";
+// const SPOTIFY_CLIENT_SECRET = "0f6566c81ad642399610d7c32ee46401";
+
+const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID
+const SPOTIFY_CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
+
+console.log(SPOTIFY_CLIENT_ID)
+console.log(SPOTIFY_CLIENT_SECRET)
 
 let accessToken = "";
 
