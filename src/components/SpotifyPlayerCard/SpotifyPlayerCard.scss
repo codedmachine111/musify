@@ -8,6 +8,20 @@
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   height: 50%;
   
+  .spc-header{
+    background-color: #1db954;
+  }
+  #prediction{
+    font-size: 0.8rem;
+    opacity: 0.8;
+    font-style: italic;
+    background-color: #1db954;
+  }
+  #pred{
+    text-transform: uppercase;
+    background-color: #1db954;
+  }
+
   .spc-title {
     background-color: #1db954;
 

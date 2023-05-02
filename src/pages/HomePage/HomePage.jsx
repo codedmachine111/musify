@@ -19,7 +19,7 @@ export const HomePage = () => {
         <div className="home-content-container">
           {predicted ? (
             <>
-              <SpotifyPlayerCard tracks={songs}/>
+              <SpotifyPlayerCard emotion={predicted}/>
               <SongsListCard tracks={songs}/>
             </>
           ) : (

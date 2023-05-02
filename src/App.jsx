@@ -7,7 +7,7 @@ export const PredictContext = createContext();
 export const SongsContext = createContext();
 
 function App() {
-  const [predicted, setPredicted] = useState(false);
+  const [predicted, setPredicted] = useState("");
   const [songs, setSongs] = useState([]);
 
   return (

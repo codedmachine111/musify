@@ -2,26 +2,13 @@ import "./SpotifyPlayerCard.scss";
 
 export const SpotifyPlayerCard = (props) => {
   const { emotion } = props;
-
-  const happyMusicGenres = [
-    "happy",
-    "sad",
-    "surprised",
-    "disgusted",
-    "neutral",
-  ];
-
-  var genre = "";
-  if (happyMusicGenres.includes(emotion)) {
-    genre = "happy chill";
-  } else {
-    genre = "sad";
-  }
-
   return (
     <div className="spc-container">
+      <div className="spc-header">
+        <h2 id="prediction">AI predicted you are <span id="pred">{emotion}</span></h2>
+      </div>
       <div className="spc-title">
-        {genre == "sad" ? (
+        {emotion == "sad" ? (
           <>
             <h1>Soothe your soul!</h1>
           </>
@@ -32,7 +19,7 @@ export const SpotifyPlayerCard = (props) => {
         )}
       </div>
       <div className="spc-desc">
-        {genre == "sad" ? (
+        {emotion == "sad" ? (
           <>
             <p>
               When we're feeling down, listening to sad songs can actually help

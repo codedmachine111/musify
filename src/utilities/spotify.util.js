@@ -43,17 +43,15 @@ const getAccessToken = async () => {
 };
 
 export const getGenreSongsForEmotion = async (emotion) => {
-  const happyMusicGenres = [
-    "happy",
-    "sad",
-    "surprised",
-    "disgusted",
-    "neutral",
-  ];
+  
   var query = "";
-  if (happyMusicGenres.includes(emotion)) {
+  if (emotion === "happy") {
     query = "happy chill";
-  } else {
+  } 
+  else if(emotion === "netural"){
+    query = "chill";
+  }
+  else {
     query = "sad";
   }
   const token = await getAccessToken();

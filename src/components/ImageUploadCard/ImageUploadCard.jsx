@@ -2,7 +2,7 @@ import "./ImageUploadCard.scss";
 import { Button } from "../Button/Button";
 import Webcam from "react-webcam";
 import { useState, useRef, useCallback } from "react";
-import { predictImageClass } from "../../utilities/predict";
+import { predictImageClass, predictImageClassMinModel } from "../../utilities/predict";
 import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
 import { useContext } from "react";
 import { PredictContext } from '../../App'
@@ -18,7 +18,6 @@ const ImageUploadCard = () => {
   const { setSongs } = useContext(SongsContext);
 
   const [image, setImage] = useState("");
-  const [prediction, setPrediction] = useState("");
 
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
@@ -35,11 +34,11 @@ const ImageUploadCard = () => {
       return;
     }
     
-    const predictedClass = await predictImageClass(imageElement);
-    setPrediction(predictedClass);
-    const tracks = await getGenreSongsForEmotion(prediction);
+    // const predictedClass = await predictImageClass(imageElement);
+    const predictedClass = await predictImageClassMinModel(imageElement);
+    setPredicted(predictedClass);
+    const tracks = await getGenreSongsForEmotion(predictedClass);
     setSongs(tracks);
-    setPredicted(true);
   };
   
 
@@ -86,15 +85,6 @@ const ImageUploadCard = () => {
                 capture();
               }}
             />
-          )}
-        </div>
-        <div className="prediction">
-          {prediction != "" ? (
-            <>
-              <h2 id="pred">{prediction}</h2>
-            </>
-          ) : (
-            <></>
           )}
         </div>
       </div>
