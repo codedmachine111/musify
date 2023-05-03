@@ -1,8 +1,9 @@
 import "./ImageUploadCard.scss";
 import { Button } from "../Button/Button";
+import { CircularProgress } from "@mui/material";
 import Webcam from "react-webcam";
 import { useState, useRef, useCallback } from "react";
-import { predictImageClass, predictImageClassMinModel } from "../../utilities/predict";
+import { predictImageClassMinModel } from "../../utilities/predict";
 import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
 import { useContext } from "react";
 import { PredictContext } from '../../App'
@@ -18,10 +19,15 @@ const ImageUploadCard = () => {
   const { setSongs } = useContext(SongsContext);
 
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
     const image = webcamRef.current.getScreenshot();
+    if (image == null) {
+      alert('Please enable your camera!');
+      return;
+    }
     setImage(image);
   });
 
@@ -33,12 +39,12 @@ const ImageUploadCard = () => {
       console.error('Invalid image element!');
       return;
     }
-    
-    // const predictedClass = await predictImageClass(imageElement);
+    loading ? setLoading(false) : setLoading(true);
     const predictedClass = await predictImageClassMinModel(imageElement);
     setPredicted(predictedClass);
     const tracks = await getGenreSongsForEmotion(predictedClass);
     setSongs(tracks);
+    setLoading(false);
   };
   
 
@@ -64,7 +70,12 @@ const ImageUploadCard = () => {
             )}
           </div>
         </div>
-        <div className="buttons">
+        {loading ? (<>
+          <div className="loading">
+            <CircularProgress />
+          </div>
+          </>):(<>
+            <div className="buttons">
           {image != "" ? (
             <>
               <Button
@@ -72,10 +83,10 @@ const ImageUploadCard = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setImage("");
-                  setPrediction("");
+                  setPredicted("");
                 }}
               />
-              <Button title="recommend music" onClick={onPredictHandler} />
+              <Button title="recommend music" onClick={onPredictHandler} disabled={loading}/>
             </>
           ) : (
             <Button
@@ -87,6 +98,7 @@ const ImageUploadCard = () => {
             />
           )}
         </div>
+          </>)}
       </div>
     </>
   );
