@@ -2,53 +2,8 @@
   align-items: left;
   width: 40%;
   height: auto;
-  background-color: #1db954;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-  height: 50%;
-  
-  .spc-header{
-    background-color: #1db954;
-  }
-  #prediction{
-    font-size: 0.8rem;
-    opacity: 0.8;
-    font-style: italic;
-    background-color: #1db954;
-  }
-  #pred{
-    text-transform: uppercase;
-    background-color: #1db954;
-  }
 
-  .spc-title {
-    background-color: #1db954;
-
-    h1 {
-      font-size: 2rem;
-      background-color: #1db954;
-      text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-  }
-
-  .spc-desc {
-    background-color: #1db954;
-
-    p {
-      font-size: 1rem;  
-      text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
-      background-color: #1db954;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-  }
-}
-@media screen and (max-width: 600px){
-  .spc-container {
+  .spc-card-container {
     align-items: left;
     width: 100%;
     height: auto;
@@ -56,11 +11,24 @@
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-    height: 50%;
-    
+
+    .spc-header {
+      background-color: #1db954;
+    }
+    #prediction {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      font-style: italic;
+      background-color: #1db954;
+    }
+    #pred {
+      text-transform: uppercase;
+      background-color: #1db954;
+    }
+
     .spc-title {
       background-color: #1db954;
-  
+
       h1 {
         font-size: 2rem;
         background-color: #1db954;
@@ -70,12 +38,49 @@
         margin-bottom: 10px;
       }
     }
-  
+
     .spc-desc {
       background-color: #1db954;
-  
+
       p {
-        font-size: 1rem;  
+        font-size: 1rem;
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
+        background-color: #1db954;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .spc-container {
+    align-items: left;
+    width: 100%;
+    height: auto;
+    background-color: #1db954;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    height: 50%;
+
+    .spc-title {
+      background-color: #1db954;
+
+      h1 {
+        font-size: 2rem;
+        background-color: #1db954;
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+    }
+
+    .spc-desc {
+      background-color: #1db954;
+
+      p {
+        font-size: 1rem;
         text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
         background-color: #1db954;
         color: #fff;
