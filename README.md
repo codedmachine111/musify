@@ -9,4 +9,7 @@ Model used : <a href="https://github.com/codedmachine111/musify-deep-learning-mo
 <img src="https://github.com/codedmachine111/musify/blob/boss/public/musifi-dl-model-wf.png" width=1200></img>
 
 <h3>Results on test data :</h3>
+<p>0 - Happy</p>
+<p>1 - Sad</p>
+<p>2 - Neutral</p>
 <img src="https://github.com/codedmachine111/musify/blob/boss/public/model-cm.png" width=400></img>
