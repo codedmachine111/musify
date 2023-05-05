@@ -38,6 +38,20 @@
         }
     }
   }
+  .display-face{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;    
+    margin: 1rem 0;
+    
+    p{
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin: 0.5rem 0 0 0;
+      font-style: italic;
+    }
+  }
   .loading{
     width: 100%;
     display: flex;

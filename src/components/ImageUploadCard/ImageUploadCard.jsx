@@ -3,7 +3,7 @@ import { Button } from "../Button/Button";
 import { CircularProgress } from "@mui/material";
 import Webcam from "react-webcam";
 import { useState, useRef, useCallback } from "react";
-import { predictImageClassMinModel } from "../../utilities/predict";
+import { predictImageClassMinModel, detectFace } from "../../utilities/predict";
 import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
 import { useContext } from "react";
 import { PredictContext } from '../../App'
@@ -20,6 +20,7 @@ const ImageUploadCard = () => {
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [croppedImage, setCroppedImage] = useState(null);
 
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
@@ -31,6 +32,11 @@ const ImageUploadCard = () => {
     setImage(image);
   });
 
+  const handleImageLoad = async (image) => {
+    const canvas = await detectFace(image);
+    setCroppedImage(canvas.toDataURL());
+  };
+
   const onPredictHandler = async (e) => {
     const imageElement = document.getElementById("captured-image");
 
@@ -39,7 +45,9 @@ const ImageUploadCard = () => {
       console.error('Invalid image element!');
       return;
     }
+
     loading ? setLoading(false) : setLoading(true);
+    await handleImageLoad(imageElement)
     const predictedClass = await predictImageClassMinModel(imageElement);
     setPredicted(predictedClass);
     const tracks = await getGenreSongsForEmotion(predictedClass);
@@ -69,6 +77,12 @@ const ImageUploadCard = () => {
               <img src={image} id="captured-image" />
             )}
           </div>
+        </div>
+        <div className="display-face">
+          {croppedImage && (<>
+            <img src={croppedImage} alt="Cropped img" />
+            <p>Face Detected!</p>
+          </>)}
         </div>
         {loading ? (<>
           <div className="loading">
