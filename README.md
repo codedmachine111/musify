@@ -6,7 +6,7 @@ Model used : <a href="https://github.com/codedmachine111/musify-deep-learning-mo
 <br>
 <h3>Model workflow :</h3>
 
-<img src="https://github.com/codedmachine111/musify/tree/boss/public/musifi-dl-model-wf.png" width=800></img>
+<img src="https://github.com/codedmachine111/musify/blob/boss/public/musifi-dl-model-wf.png" width=1200></img>
 
 <h3>Results on test data :</h3>
-<img src="https://github.com/codedmachine111/musify/tree/boss/public/model-cm.png" width=400></img>
+<img src="https://github.com/codedmachine111/musify/blob/boss/public/model-cm.png" width=400></img>
