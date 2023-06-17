@@ -6,7 +6,7 @@ nav {
   /* background-color: rgb(243, 243, 243); */
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem;
   min-height: 7vh;
 }
 
@@ -103,7 +103,9 @@ a {
   #logo-icon {
     font-size: 2.5rem;
   }
-
+  .nav-menu{
+    width: 10%;
+  }
   .fa-bars {
     padding: 0.75rem;
   }
@@ -132,21 +134,24 @@ a {
       margin-top: 20px;
       display: flex;
       justify-content: flex-start;
+      background-color: #1b1b1b;
 
       a {
-        &:hover {
-          transition: 0.2s ease;
-          color: #fff;
-          background-color: #1b1b1b;
-          transition: 0.3s ease;
-        }
-
-        width: 30%;
+        background-color: #1b1b1b;
+        border: 2px solid #ccc;
+        border-radius: 0rem;
+        width: 100%;
         padding: 0.5rem;
         font-size: 1rem;
         color: #fff;
         text-align: left;
-        border-radius: 10px;
+
+        &:hover {
+          transition: 0.2s ease;
+          color: #0f0f0f;
+          background-color: #fff;
+          transition: 0.3s ease;
+        }
       }
     }
   }

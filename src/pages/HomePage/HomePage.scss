@@ -20,8 +20,10 @@
 
 @media screen and (max-width: 600px){
     .home-page-container{
-        min-height: calc(100vh - 7vh - 2.2rem);
+        min-height: 70vh;
+        height: auto;
         width: 100%;
+        padding: 0 1rem;
 
         .home-content-container{
             width: 100%;
