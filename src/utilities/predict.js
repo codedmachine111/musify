@@ -4,27 +4,56 @@ import * as faceapi from "@vladmandic/face-api";
 
 tf.setBackend("webgl");
 
-export const detectFace = async (image) => {
-    let MODEL_URL = "";
-    if (import.meta.env.VITE_APP_URL) {
+export const detectFaceAndExpression = async (image) => {
+  const minConfidence = 0.5;
+  let MODEL_URL = "";
+  if (import.meta.env.VITE_APP_URL) {
     // FOR DEV
     MODEL_URL = `${import.meta.env.VITE_APP_URL}/src/assets/models`;
-    }else{
+  } else {
     MODEL_URL = "/models";
-    }
+  }
 
+  await faceapi.loadFaceExpressionModel(MODEL_URL);
   await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
-  const detection = await faceapi.detectSingleFace(image);
 
-  const { x, y, width, height } = detection.box;
+  // detect faces and expressions
+  const result = await faceapi
+    .detectAllFaces(image, new faceapi.SsdMobilenetv1Options({ minConfidence }))
+    .withFaceExpressions(image);
 
+  if (result && result.length > 0) {
+    console.log("Emotion detected!");
+  } else {
+    console.warn("No emotion detected");
+    alert("No emotion detected. Please try again.");
+    window.location.reload();
+    return null;
+  }
+
+  let maxExpression = ""
+  let maxConfidence = 0;
+  const expressions = result[0].expressions;
+  
+  const targetExpressions = ["happy", "sad", "angry", "neutral"];
+  
+  for(const expression of targetExpressions){
+    const confidence = expressions[expression] || 0;
+    if(confidence > maxConfidence){
+      maxConfidence = confidence;
+      maxExpression = expression;
+    }
+  }
+
+  // To draw the detected face on the canvas
+  const { x, y, width, height } = result[0].detection.box;
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
   context.drawImage(image, x, y, width, height, 0, 0, width, height);
 
-  return canvas;
+  return [canvas, maxExpression];
 };
 
 const loadModel = async () => {
@@ -43,7 +72,7 @@ const loadModel = async () => {
 const preprocessImageMinLabelModel = async (image) => {
   // Detect face
   const face = await detectFace(image);
-  
+
   // Convert image to a tensor and resize to (48, 48, 3)
   const tensor = tf.browser
     .fromPixels(face)

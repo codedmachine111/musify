@@ -3,7 +3,7 @@ import { Button } from "../Button/Button";
 import { CircularProgress } from "@mui/material";
 import Webcam from "react-webcam";
 import { useState, useRef, useCallback } from "react";
-import { predictImageClassMinModel, detectFace } from "../../utilities/predict";
+import { detectFaceAndExpression } from "../../utilities/predict";
 import { getGenreSongsForEmotion } from "../../utilities/spotify.util";
 import { useContext } from "react";
 import { PredictContext } from '../../App'
@@ -15,7 +15,7 @@ const ImageUploadCard = () => {
     height: 400,
     facingMode: "user",
   };
-  const { setPredicted } = useContext(PredictContext);
+  const { predicted, setPredicted } = useContext(PredictContext);
   const { setSongs } = useContext(SongsContext);
 
   const [image, setImage] = useState("");
@@ -32,8 +32,11 @@ const ImageUploadCard = () => {
     setImage(image);
   });
 
-  const handleImageLoad = async (image) => {
-    const canvas = await detectFace(image);
+  let expression = "";
+  const handleImageLoadAndPredict = async (image) => {
+    const [canvas, maxExpression] = await detectFaceAndExpression(image);
+    setPredicted(maxExpression);
+    expression = maxExpression;
     setCroppedImage(canvas.toDataURL());
   };
 
@@ -47,10 +50,10 @@ const ImageUploadCard = () => {
     }
 
     loading ? setLoading(false) : setLoading(true);
-    await handleImageLoad(imageElement)
-    const predictedClass = await predictImageClassMinModel(imageElement);
-    setPredicted(predictedClass);
-    const tracks = await getGenreSongsForEmotion(predictedClass);
+    await handleImageLoadAndPredict(imageElement)
+    // const predictedClass = await predictImageClassMinModel(imageElement);
+    // setPredicted(predictedClass);
+    const tracks = await getGenreSongsForEmotion(expression);
     setSongs(tracks);
     setLoading(false);
   };

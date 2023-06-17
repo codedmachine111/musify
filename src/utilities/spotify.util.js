@@ -41,21 +41,24 @@ const getAccessToken = async () => {
   }
   return accessToken;
 };
-
 export const getGenreSongsForEmotion = async (emotion) => {
   
+  console.log(emotion)
   var query = "";
   if (emotion === "happy") {
-    query = "happy chill";
+    query = "happy chill music";
   } 
   else if(emotion === "netural"){
-    query = "chill";
+    query = "chill music";
+  }
+  else if(emotion === "angry"){
+    query = "gym music";
   }
   else {
-    query = "sad";
+    query = "sad music";
   }
   const token = await getAccessToken();
-
+  console.log(token)
   let tracks = [];
   const maxTracks = 50;
   let offset = 0;
