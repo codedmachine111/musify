@@ -63,7 +63,7 @@ const ImageUploadCard = () => {
     <>
       <div className="image-upload-card-container">
         <div className="image-input">
-          <h2>Take a Selfie!</h2>
+          <h2>Take a <span id="diff">S</span>elfie!</h2>
           <p>(Please take a clear photo!)</p>
           <div className="webcam-container">
             {image == "" ? (

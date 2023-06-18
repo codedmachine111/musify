@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="logo">
-      <img src="" alt="" id="logo-icon"/>
+        <Link to="/"><span id="diff">m</span></Link>
       </div>
       <div className="nav-menu">
         <input type="checkbox" id="check" />

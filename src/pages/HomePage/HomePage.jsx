@@ -16,19 +16,36 @@ export const HomePage = () => {
       <Navbar />
 
       <div className="home-page-container">
-        <div className="home-content-container">
-          {predicted ? (
-            <>
-              <SpotifyPlayerCard emotion={predicted}/>
-              <SongsListCard tracks={songs}/>
-            </>
-          ) : (
-            <>
+        {predicted ? (
+          <>
+            <div className="home-content-container">
+              <SpotifyPlayerCard emotion={predicted} />
+              <SongsListCard tracks={songs} />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="home-desc-container">
+              <h1 id="title">
+                <span id="diff">m</span>usify
+              </h1>
+              <p id="description">
+                Welcome to Musify, a web application that detects your facial
+                emotions and recommends music tailored to your mood. Explore the
+                power of deep learning and image processing as Musifi analyzes
+                your emotions, providing you with a personalized music
+                experience like no other. Discover new tracks that resonate with
+                your emotions and embark on a musical journey that moves with
+                you. Try it out now!
+              </p>
+            </div>
+            <div className="home-content-container">
+              <h1 className="home-title">How we feeling today?</h1>
               <ImageUploadCard />
               <VoiceInputCard />
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
